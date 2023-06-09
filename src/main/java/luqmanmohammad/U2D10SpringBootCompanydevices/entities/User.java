@@ -1,9 +1,7 @@
 package luqmanmohammad.U2D10SpringBootCompanydevices.entities;
 
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -24,14 +22,15 @@ public class User {
 	private String name;
 	private String surname;
 	private String email;
+	private String password;
 	
-	public User(String username, String name, String surname, String email, List<Device> devices) {
+	public User(String username, String name, String surname, String email, String password) {
 		super();
 		this.username = username;
 		this.name = name;
 		this.surname = surname;
 		this.email = email;
-		this.devices = devices;
+		this.password = password;
 	}
 
 

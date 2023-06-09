@@ -1,15 +1,10 @@
 package luqmanmohammad.U2D10SpringBootCompanydevices.service;
 
-import java.awt.print.Pageable;
+
 import java.util.List;
 import java.util.UUID;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Sort;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-
 import luqmanmohammad.U2D10SpringBootCompanydevices.entities.User;
 import luqmanmohammad.U2D10SpringBootCompanydevices.exceptions.NotFoundException;
 import luqmanmohammad.U2D10SpringBootCompanydevices.repository.UserRepository;

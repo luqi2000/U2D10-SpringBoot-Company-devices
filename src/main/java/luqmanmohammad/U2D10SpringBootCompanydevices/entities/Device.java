@@ -28,4 +28,10 @@ public class Device {
 	
 	@ManyToOne
 	public User user;
+
+	public Device(DeviceStatus deviceStatus, DeviceType deviceType) {
+		super();
+		this.deviceStatus = deviceStatus;
+		this.deviceType = deviceType;
+	}
 }

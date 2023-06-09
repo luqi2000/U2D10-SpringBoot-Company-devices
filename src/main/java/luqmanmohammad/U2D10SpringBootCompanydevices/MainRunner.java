@@ -8,6 +8,9 @@ import org.springframework.stereotype.Component;
 
 import com.github.javafaker.Faker;
 
+import luqmanmohammad.U2D10SpringBootCompanydevices.entities.Device;
+import luqmanmohammad.U2D10SpringBootCompanydevices.entities.Device.DeviceStatus;
+import luqmanmohammad.U2D10SpringBootCompanydevices.entities.Device.DeviceType;
 import luqmanmohammad.U2D10SpringBootCompanydevices.entities.User;
 import luqmanmohammad.U2D10SpringBootCompanydevices.service.UserService;
 
@@ -19,6 +22,7 @@ public class MainRunner implements CommandLineRunner{
 	
 	@Override
 	public void run(String... args) throws Exception {
+	
 //		Faker faker = new Faker(new Locale("it"));
 //		for (int i = 0; i < 10; i++) {
 //			try {
@@ -27,7 +31,7 @@ public class MainRunner implements CommandLineRunner{
 //				String surname = faker.name().lastName();
 //				String email = faker.internet().emailAddress();
 //				User user = new User(username,name, surname, email);
-//				userService.create(user);
+//				//userService.create(user);
 //			
 //			} catch (Exception e) {
 //				System.out.println(e);

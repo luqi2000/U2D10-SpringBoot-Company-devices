@@ -51,6 +51,5 @@ public class UserController {
 	public void deleteUser(@PathVariable UUID userId) {
 		userService.findByIdAndDelete(userId);
 	}
-	
-	
+
 }
