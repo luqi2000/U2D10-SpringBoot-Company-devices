@@ -6,6 +6,8 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import luqmanmohammad.U2D10SpringBootCompanydevices.entities.User;
+import luqmanmohammad.U2D10SpringBootCompanydevices.entities.UserPayload;
+import luqmanmohammad.U2D10SpringBootCompanydevices.exceptions.BadRequestException;
 import luqmanmohammad.U2D10SpringBootCompanydevices.exceptions.NotFoundException;
 import luqmanmohammad.U2D10SpringBootCompanydevices.repository.UserRepository;
 
@@ -16,19 +18,25 @@ public class UserService {
 	private UserRepository userRepo;
 	
 	// 1. create user
-	public User create(User u) {
-		return userRepo.save(u);
+	public User create(UserPayload u) {
+		userRepo.findByEmail(u.getEmail()).ifPresent(user -> {
+			throw new BadRequestException("email not valid");
+		});
+		User a = new User(u.getName(), u.getSurname(), u.getEmail(), u.getUsername(), u.getPassword());
+		return userRepo.save(a);
 	}
 	
-	// 2. trova tutti gli utenti
+	// 2. search all users
 	public List<User> findAll(){
 		return userRepo.findAll();
 	}
 	
+	//3 search by id
 	public User findById(UUID id) throws NotFoundException {
 		return userRepo.findById(id).orElseThrow(() -> new NotFoundException("employee not found!"));
 	}
 	
+	// 4. find by id and update
 	public User findByIdAndUpdate(UUID id, User u) throws NotFoundException {
 		User found = this.findById(id);
 
@@ -40,7 +48,7 @@ public class UserService {
 
 		return userRepo.save(found);
 	}
-
+	//5. find by id and delete
 	public void findByIdAndDelete(UUID id) throws NotFoundException {
 		User found = this.findById(id);
 		userRepo.delete(found);

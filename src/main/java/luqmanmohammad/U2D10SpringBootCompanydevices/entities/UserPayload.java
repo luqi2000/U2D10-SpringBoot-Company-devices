@@ -7,7 +7,7 @@ import lombok.Getter;
 
 @Getter
 public class UserPayload {		
-	@NotNull(message = "username not valid")
+	@NotNull(message = "username required")
 	String username;
 	@NotNull(message = "name is required")
 	String name;
