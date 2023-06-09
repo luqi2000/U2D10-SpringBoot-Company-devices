@@ -36,4 +36,9 @@ public class JWTTools {
 	static public boolean isTokenValid(String token) {
 		return true;
 	}
+
+	public static String extractSubject(String accessToken) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

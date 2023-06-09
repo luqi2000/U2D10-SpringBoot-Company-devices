@@ -25,7 +25,6 @@ public class UserService {
 		User a = new User(u.getName(), u.getSurname(), u.getEmail(), u.getUsername(), u.getPassword());
 		return userRepo.save(a);
 	}
-	
 	// 2. search all users
 	public List<User> findAll(){
 		return userRepo.findAll();
