@@ -11,4 +11,5 @@ import luqmanmohammad.U2D10SpringBootCompanydevices.entities.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, UUID> {
 	Optional<User> findByEmail(String email);
+	Optional<User> findByUsername(String username);
 }
