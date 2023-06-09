@@ -25,14 +25,16 @@ public class User {
 	private String surname;
 	private String email;
 	
-	public User(String username, String name, String surname, String email) {
+	public User(String username, String name, String surname, String email, List<Device> devices) {
 		super();
 		this.username = username;
 		this.name = name;
 		this.surname = surname;
 		this.email = email;
+		this.devices = devices;
 	}
-	
+
+
 	@OneToMany(mappedBy = "user")
 	private List<Device> devices;
 }
