@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import luqmanmohammad.U2D10SpringBootCompanydevices.auth.payload.AuthenticationSuccessfullPayload;
 import luqmanmohammad.U2D10SpringBootCompanydevices.entities.User;
-import luqmanmohammad.U2D10SpringBootCompanydevices.entities.UserPayload;
 import luqmanmohammad.U2D10SpringBootCompanydevices.entities.payload.UserLoginPayload;
 import luqmanmohammad.U2D10SpringBootCompanydevices.service.UserService;
 

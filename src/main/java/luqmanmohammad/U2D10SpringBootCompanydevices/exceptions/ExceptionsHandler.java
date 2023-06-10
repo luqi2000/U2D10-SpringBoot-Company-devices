@@ -17,17 +17,19 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class ExceptionsHandler {
 
 	
-	//i method that return response and for return response we need ResponseEntity
-//	@ExceptionHandler(MethodArgumentNotValidException.class)
-//	public ResponseEntity<ErrorsPayloadWithErrorsList> handleValidationErrors(MethodArgumentNotValidException ex) {
-//		List<String> errors = ex.getBindingResult().getFieldErrors().stream().map(error -> error.getDefaultMessage())
-//				.collect(Collectors.toList());
-//
-//		ErrorsPayloadWithErrorsList payload = new ErrorsPayloadWithErrorsList("Ci sono stati errori nel body",
-//				new Date(), 400, errors);
-//
-//		return new ResponseEntity<ErrorsPayloadWithErrorsList>(payload, HttpStatus.BAD_REQUEST);
-//	}
+	//method that return response and for return response we need ResponseEntity
+	//this method will return a messege when you try to register an user for example without name 
+	//and if you go to UserRegistrationPayload you CAN modify the response messege 
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	public ResponseEntity<ErrorsPayloadWithErrorsList> handleValidationErrors(MethodArgumentNotValidException ex) {
+		List<String> errors = ex.getBindingResult().getFieldErrors().stream().map(error -> error.getDefaultMessage())
+				.collect(Collectors.toList());
+
+		ErrorsPayloadWithErrorsList payload = new ErrorsPayloadWithErrorsList("Ci sono stati errori nel body",
+				new Date(), 400, errors);
+
+		return new ResponseEntity<ErrorsPayloadWithErrorsList>(payload, HttpStatus.BAD_REQUEST);
+	}
 
 	@ExceptionHandler(BadRequestException.class)
 	public ResponseEntity<ErrorsPayload> handleBadRequest(BadRequestException e) {

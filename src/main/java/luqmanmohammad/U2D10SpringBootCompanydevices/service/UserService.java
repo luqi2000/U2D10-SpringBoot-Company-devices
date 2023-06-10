@@ -10,7 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import luqmanmohammad.U2D10SpringBootCompanydevices.entities.User;
-import luqmanmohammad.U2D10SpringBootCompanydevices.entities.UserPayload;
+import luqmanmohammad.U2D10SpringBootCompanydevices.entities.payload.UserRegistrationPayload;
 import luqmanmohammad.U2D10SpringBootCompanydevices.exceptions.BadRequestException;
 import luqmanmohammad.U2D10SpringBootCompanydevices.exceptions.NotFoundException;
 import luqmanmohammad.U2D10SpringBootCompanydevices.repository.UserRepository;
@@ -22,12 +22,14 @@ public class UserService {
 	private UserRepository userRepo;
 	
 	// 1. create user
-	public User create(User u) {
+	public User create(UserRegistrationPayload u) {
 		userRepo.findByEmail(u.getEmail()).ifPresent(user -> {
 			throw new BadRequestException("email already register");
 		});
-		//User a = new User(u.getUsername(), u.getName(), u.getSurname(),u.getEmail(), u.get);
-		return userRepo.save(u);
+		
+		//this is what back-end will create from front end 
+		User newUser = new User(u.getUsername(), u.getName(), u.getSurname(),u.getEmail(), u.getPassword());
+		return userRepo.save(newUser);
 	}
 	// 2. search all users
 	public Page<User> findAll(int page, int size, String sortBy){
@@ -43,14 +45,14 @@ public class UserService {
 	}
 	
 	// 4. find by id and update
-	public User findByIdAndUpdate(UUID id, User u) throws NotFoundException {
+	public User findByIdAndUpdate(UUID id, UserRegistrationPayload body) throws NotFoundException {
 		User found = this.findById(id);
 
 		found.setId(id);
-		found.setName(u.getName());
-		found.setSurname(u.getSurname());
-		found.setEmail(u.getEmail());
-		found.setUsername(u.getUsername());
+		found.setName(body.getName());
+		found.setSurname(body.getSurname());
+		found.setEmail(body.getEmail());
+		found.setUsername(body.getUsername());
 
 		return userRepo.save(found);
 	}

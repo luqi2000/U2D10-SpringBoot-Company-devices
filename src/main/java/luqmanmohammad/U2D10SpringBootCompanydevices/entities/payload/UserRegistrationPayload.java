@@ -1,12 +1,15 @@
-package luqmanmohammad.U2D10SpringBootCompanydevices.entities;
+package luqmanmohammad.U2D10SpringBootCompanydevices.entities.payload;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 
+
+//i have this class because this is what i want to see on my payload for example in postman and then 
+//i can have some validation after
 @Getter
-public class UserPayload {		
+public class UserRegistrationPayload {		
 	@NotNull(message = "username required")
 	String username;
 	@NotNull(message = "name is required")
