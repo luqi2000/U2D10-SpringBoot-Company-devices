@@ -24,7 +24,7 @@ public class MainRunner implements CommandLineRunner{
 	public void run(String... args) throws Exception {
 	
 		Faker faker = new Faker(new Locale("it"));
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 50; i++) {
 			try {
 				String username = faker.name().username();
 				String name = faker.name().firstName();
