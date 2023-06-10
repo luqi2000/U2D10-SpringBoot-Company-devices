@@ -22,11 +22,11 @@ public class AuthController {
 	@Autowired
 	UserService userService;
 
-	@PostMapping("/register")
-	public ResponseEntity<User> register(@RequestBody @Validated UserPayload body) {
-		User createdUser = userService.create(body);
-		return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
-	}
+//	@PostMapping("/register")
+//	public ResponseEntity<User> register(@RequestBody @Validated UserPayload body) {
+//		User createdUser = userService.create(body);
+//		return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
+//	}
 	
 	
 	

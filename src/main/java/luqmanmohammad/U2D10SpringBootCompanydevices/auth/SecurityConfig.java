@@ -16,7 +16,7 @@ public class SecurityConfig {
 		http.cors(c -> c.disable());
 		http.csrf(c -> c.disable());
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/auth/**").permitAll());
-		http.authorizeHttpRequests(auth -> auth.requestMatchers("/employee/**").authenticated());
+		http.authorizeHttpRequests(auth -> auth.requestMatchers("/employee/**").permitAll());
 		http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
 		return http.build();

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import luqmanmohammad.U2D10SpringBootCompanydevices.entities.User;
 import luqmanmohammad.U2D10SpringBootCompanydevices.entities.UserPayload;
+import luqmanmohammad.U2D10SpringBootCompanydevices.exceptions.NotFoundException;
 import luqmanmohammad.U2D10SpringBootCompanydevices.service.UserService;
 
 @RestController
@@ -36,7 +37,7 @@ public class UserController {
 	//working
 	@PostMapping("")
 	@ResponseStatus(HttpStatus.CREATED)
-	public User saveUser(@RequestBody @Validated UserPayload body){
+	public User saveUser(@RequestBody @Validated User body){
 		return userService.create(body);
 	}
 	
@@ -51,7 +52,7 @@ public class UserController {
 	
 	//working
 	@GetMapping("/{userId}")
-	public User getUser(@PathVariable UUID userId) throws Exception {
+	public User getUser(@PathVariable UUID userId) throws NotFoundException {
 		return userService.findById(userId);
 	}
 	

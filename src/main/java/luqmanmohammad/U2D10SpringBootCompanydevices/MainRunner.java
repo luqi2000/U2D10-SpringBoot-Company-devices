@@ -23,20 +23,21 @@ public class MainRunner implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 	
-//		Faker faker = new Faker(new Locale("it"));
-//		for (int i = 0; i < 10; i++) {
-//			try {
-//				String username = faker.name().username();
-//				String name = faker.name().firstName();
-//				String surname = faker.name().lastName();
-//				String email = faker.internet().emailAddress();
-//				User user = new User(username,name, surname, email);
-//				//userService.create(user);
-//			
-//			} catch (Exception e) {
-//				System.out.println(e);
-//			}
-//		}
+		Faker faker = new Faker(new Locale("it"));
+		for (int i = 0; i < 10; i++) {
+			try {
+				String username = faker.name().username();
+				String name = faker.name().firstName();
+				String surname = faker.name().lastName();
+				String email = faker.internet().emailAddress();
+				String password  = faker.code().asin();
+				User user = new User(username, name, surname, email, password);
+				//userService.create(user);
+			
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+		}
 	}
 
 }

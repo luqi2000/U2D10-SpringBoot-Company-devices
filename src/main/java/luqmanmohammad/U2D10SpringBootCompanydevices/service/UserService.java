@@ -18,12 +18,12 @@ public class UserService {
 	private UserRepository userRepo;
 	
 	// 1. create user
-	public User create(UserPayload u) {
+	public User create(User u) {
 		userRepo.findByEmail(u.getEmail()).ifPresent(user -> {
-			throw new BadRequestException("email not valid");
+			throw new BadRequestException("email already register");
 		});
-		User a = new User(u.getName(), u.getSurname(), u.getEmail(), u.getUsername(), u.getPassword());
-		return userRepo.save(a);
+		//User a = new User(u.getUsername(), u.getName(), u.getSurname(),u.getEmail(), u.get);
+		return userRepo.save(u);
 	}
 	// 2. search all users
 	public List<User> findAll(){
