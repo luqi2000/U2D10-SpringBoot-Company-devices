@@ -7,9 +7,17 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import luqmanmohammad.U2D10SpringBootCompanydevices.entities.User;
 
+
+//this class will generate token so i need static method for create and verify token
+//create token means return token that is a String 
 @Component
 public class JWTTools {
-
+	
+	//for create a token we need secret key and expired date of the key which one i have declared 
+	//before in a file env.properties and write in .gitignore for not commit of this and then declared 
+	//in application.properties the variable
+	//When we use static method @value remember that this will not work directly thats's why we have to create 
+	//a setter and then use @value with the variable declared in application.properties
 	private static String secret;
 	private static int expiration;
 
@@ -17,12 +25,19 @@ public class JWTTools {
 	public void setSecret(String secretKey) {
 		secret = secretKey;
 	}
-
 	@Value("${JWT_EXPIRATION}")
 	public void setExpiration(String expirationInDays) {
-		expiration = Integer.parseInt(expirationInDays) * 24 * 60 * 60 * 1000;
+		expiration = Integer.parseInt(expirationInDays) * 24 * 60 * 60 * 1000; // calculate in milliseconds of expirationInDays
 	}
+	
 	//create token
+	//Jwts is a library that we need for doing what i need to do and builder is for create token
+	//what we need? we need payload, header, token signature of the token
+	//setSubject is the owner of the toker 
+	//setIssuedAt is when the token is released
+	//setExpiration is when this token expire and it will from today to expirationDay
+	//signWith will convert my secret in something that he understand
+	//.compact give token
 	static public String createToken(User u) {
 		String token = Jwts.builder()
 				.setSubject(u.getEmail())
@@ -32,13 +47,12 @@ public class JWTTools {
 		return token;
 	}
 
-	//check if the token is valid
+	//verify if the token is valid
 	static public boolean isTokenValid(String token) {
 		return true;
 	}
 
 	public static String extractSubject(String accessToken) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }

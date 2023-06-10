@@ -22,7 +22,7 @@ public class SecurityConfig {
 		http.cors(c -> c.disable());
 		http.csrf(c -> c.disable());
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/auth/**").permitAll());
-		http.authorizeHttpRequests(auth -> auth.requestMatchers("/employee/**").permitAll());
+		http.authorizeHttpRequests(auth -> auth.requestMatchers("/employee/**").authenticated());
 		
 		//disactivated session because we are using in this case JWT so whit stateless it mean without state/session 
 		http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)); 

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import luqmanmohammad.U2D10SpringBootCompanydevices.auth.payload.AuthenticationSuccessfullPayload;
 import luqmanmohammad.U2D10SpringBootCompanydevices.entities.User;
 import luqmanmohammad.U2D10SpringBootCompanydevices.entities.payload.UserLoginPayload;
+import luqmanmohammad.U2D10SpringBootCompanydevices.entities.payload.UserRegistrationPayload;
 import luqmanmohammad.U2D10SpringBootCompanydevices.service.UserService;
 
 @RestController
@@ -21,18 +22,25 @@ public class AuthController {
 	@Autowired
 	UserService userService;
 
-//	@PostMapping("/register")
-//	public ResponseEntity<User> register(@RequestBody @Validated UserPayload body) {
-//		User createdUser = userService.create(body);
-//		return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
-//	}
+	@PostMapping("/register")
+	public ResponseEntity<User> register(@RequestBody @Validated UserRegistrationPayload body) {
+		User createdUser = userService.create(body);
+		return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
+	}
 	
-	
-	
-	
+	//for /login we can't use UserRegistrationPayload because we need 
+	//only email and password that's why i have created UserLoginPayload with Validation
+	//what have to do login? login will receive email and password and return accessToken
+	//AuthentificationSuccessfulFullPayload will return a String with inside a Token
+	//what is the step to do? 
+	//1. Verify if the email is in the database 
+	//2. If the email is in the database i have to verify that the password is correct (same as database).
+	//3. If everything is correct generate JWT token (i have created a class JWTTools for this)
+	//4. If it is not correct send a message "credentials not valid" error 401
 	@PostMapping("/login")
 	public ResponseEntity<AuthenticationSuccessfullPayload> login(@RequestBody UserLoginPayload body) {
 		User aldo = new User("aldobaglio","aldo", "baglio" , "aldo_2000@gmail.com", "783492790588");
+		
 		String token = JWTTools.createToken(aldo);
 		return new ResponseEntity<>(new AuthenticationSuccessfullPayload(token), HttpStatus.OK);
 	}
