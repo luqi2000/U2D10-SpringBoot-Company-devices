@@ -3,7 +3,8 @@ package luqmanmohammad.U2D10SpringBootCompanydevices.entities.payload;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-
+import lombok.Getter;
+@Getter
 public class UserLoginPayload {
 	@NotNull
 	@Email(message = "email not valid")

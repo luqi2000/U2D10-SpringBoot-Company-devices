@@ -42,6 +42,12 @@ public class UserService {
 		return userRepo.findById(id).orElseThrow(() -> new NotFoundException("employee not found!"));
 	}
 	
+	//3.2 search by email
+	public User findByEmail(String email) throws NotFoundException {
+		return userRepo.findByEmail(email).orElseThrow(() -> new NotFoundException("email not found"));
+	}
+
+	
 	// 4. find by id and update
 	public User findByIdAndUpdate(UUID id, UserRegistrationPayload body) throws NotFoundException {
 		User found = this.findById(id);

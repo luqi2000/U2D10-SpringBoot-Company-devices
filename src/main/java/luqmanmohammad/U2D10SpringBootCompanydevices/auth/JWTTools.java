@@ -4,8 +4,11 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.ExpiredJwtException;
 import luqmanmohammad.U2D10SpringBootCompanydevices.entities.User;
+import luqmanmohammad.U2D10SpringBootCompanydevices.exceptions.UnauthorizedException;
 
 
 //this class will generate token so i need static method for create and verify token
@@ -48,11 +51,21 @@ public class JWTTools {
 	}
 
 	//verify if the token is valid
-	static public boolean isTokenValid(String token) {
-		return true;
+	static public void isTokenValid(String token) {
+		try {
+			Jwts.parserBuilder().setSigningKey(Keys.hmacShaKeyFor(secret.getBytes())).build().parse(token);
+
+		} catch (MalformedJwtException e) {
+			throw new UnauthorizedException("token not valid");
+		} catch (ExpiredJwtException e) {
+			throw new UnauthorizedException("token expired");
+		} catch (Exception e) {
+			throw new UnauthorizedException("error with token, please log in again");
+		}
 	}
 
-	public static String extractSubject(String accessToken) {
-		return null;
+	public static String extractSubject(String token) {
+		return Jwts.parserBuilder().setSigningKey(Keys.hmacShaKeyFor(secret.getBytes())).build().parseClaimsJws(token)
+				.getBody().getSubject();
 	}
 }

@@ -1,7 +1,12 @@
 package luqmanmohammad.U2D10SpringBootCompanydevices.entities;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -14,7 +19,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "employee")
 @Data
 @NoArgsConstructor
-public class User {
+public class User implements UserDetails{
 	@Id
 	@GeneratedValue
 	private UUID id;
@@ -36,4 +41,38 @@ public class User {
 
 	@OneToMany(mappedBy = "user")
 	private List<Device> devices;
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+	@Override
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

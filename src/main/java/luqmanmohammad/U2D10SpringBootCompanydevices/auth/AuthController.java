@@ -13,6 +13,8 @@ import luqmanmohammad.U2D10SpringBootCompanydevices.auth.payload.AuthenticationS
 import luqmanmohammad.U2D10SpringBootCompanydevices.entities.User;
 import luqmanmohammad.U2D10SpringBootCompanydevices.entities.payload.UserLoginPayload;
 import luqmanmohammad.U2D10SpringBootCompanydevices.entities.payload.UserRegistrationPayload;
+import luqmanmohammad.U2D10SpringBootCompanydevices.exceptions.UnauthorizedException;
+import luqmanmohammad.U2D10SpringBootCompanydevices.repository.UserRepository;
 import luqmanmohammad.U2D10SpringBootCompanydevices.service.UserService;
 
 @RestController
@@ -21,6 +23,9 @@ public class AuthController {
 
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	UserRepository userRepo;
 
 	@PostMapping("/register")
 	public ResponseEntity<User> register(@RequestBody @Validated UserRegistrationPayload body) {
@@ -39,10 +44,11 @@ public class AuthController {
 	//4. If it is not correct send a message "credentials not valid" error 401
 	@PostMapping("/login")
 	public ResponseEntity<AuthenticationSuccessfullPayload> login(@RequestBody UserLoginPayload body) {
-		User aldo = new User("aldobaglio","aldo", "baglio" , "aldo_2000@gmail.com", "783492790588");
-		
-		String token = JWTTools.createToken(aldo);
-		return new ResponseEntity<>(new AuthenticationSuccessfullPayload(token), HttpStatus.OK);
+				User user = userService.findByEmail(body.getEmail());
+				if (!body.getPassword().matches(user.getPassword()))
+					throw new UnauthorizedException("Credentials not valid");
+				String token = JWTTools.createToken(user);
+				return new ResponseEntity<>(new AuthenticationSuccessfullPayload(token), HttpStatus.OK);
 	}
 
 }
