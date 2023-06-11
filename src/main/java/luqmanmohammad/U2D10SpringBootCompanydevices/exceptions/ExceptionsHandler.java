@@ -43,6 +43,14 @@ public class ExceptionsHandler {
 		ErrorsPayload payload = new ErrorsPayload(e.getMessage(), new Date(), 404);
 		return new ResponseEntity<ErrorsPayload>(payload, HttpStatus.NOT_FOUND);
 	}
+	
+	@ExceptionHandler(UnauthorizedException.class)
+	public ResponseEntity<ErrorsPayload> handleUnauthorized(UnauthorizedException e) {
+
+		ErrorsPayload payload = new ErrorsPayload(e.getMessage(), new Date(), 401);
+
+		return new ResponseEntity<ErrorsPayload>(payload, HttpStatus.UNAUTHORIZED);
+	}
 
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<ErrorsPayload> handleGeneric(Exception e) {

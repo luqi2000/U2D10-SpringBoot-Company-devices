@@ -39,7 +39,7 @@ public class JWTAuthFilter extends OncePerRequestFilter {
 		String authHeader = request.getHeader("Authorization");
 
 		if (authHeader == null || !authHeader.startsWith("Bearer "))
-			throw new UnauthorizedException("Per favore aggiungi il token all'authorization header");
+			throw new UnauthorizedException("please add token to authhorization header");
 
 		String accessToken = authHeader.substring(7);
 
@@ -54,7 +54,7 @@ public class JWTAuthFilter extends OncePerRequestFilter {
 		try {
 			User user = userService.findByEmail(email);
 
-		// 3.1 Aggiungo l'utente al SecurityContextHolder
+		// 3.1 Adding user in SecurityContextHolder
 
 		UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(user, null,
 				user.getAuthorities());
@@ -62,18 +62,17 @@ public class JWTAuthFilter extends OncePerRequestFilter {
 
 		SecurityContextHolder.getContext().setAuthentication(authToken);
 
-		// 3.2 puoi procedere al prossimo blocco della filterChain
+		// 3.2 you can access at next step of the block of filterChain 
 		filterChain.doFilter(request, response);
 	} catch (NotFoundException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
 
-		// 4. Se non OK -> 401 ("Per favore effettua di nuovo il login")
+		// 4. If not OK -> 401 ("please log in again")
 	}
 
-	// Per evitare che il filtro venga eseguito per OGNI richiesta
-
+	// To prevent the filter from running for EVERY request
 	@Override
 	protected boolean shouldNotFilter(HttpServletRequest request) {
 		return new AntPathMatcher().match("/auth/**", request.getServletPath());

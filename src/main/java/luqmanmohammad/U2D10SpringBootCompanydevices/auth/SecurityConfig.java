@@ -1,11 +1,14 @@
 package luqmanmohammad.U2D10SpringBootCompanydevices.auth;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 
 //1. start from SecurityConfig as a class that return SecurityFilterChain
@@ -16,6 +19,9 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+	
+	@Autowired
+	JWTAuthFilter jwtAuthFilter;
 
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -23,6 +29,8 @@ public class SecurityConfig {
 		http.csrf(c -> c.disable());
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/auth/**").permitAll());
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/employee/**").authenticated());
+		
+		http.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class); //i want to putjwtAuthFilter in a specific point 
 		
 		//disactivated session because we are using in this case JWT so whit stateless it mean without state/session 
 		http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)); 
